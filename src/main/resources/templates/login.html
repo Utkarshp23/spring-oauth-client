@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #4285F4; /* Google Blue */
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        a.github {
+            background-color: #333; /* Github Black */
+        }
+        a:hover {
+            background-color: #357ae8;
+        }
+        a.github:hover {
+            background-color: #24292e;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Login Page</h1>
+    <a th:href="@{/oauth2/authorization/google}">Login with Google</a>
+    <br>
+    <a th:href="@{/oauth2/authorization/github}" class="github">Login with Github</a>
+    <br>
+    <a th:href="@{/oauth2/authorization/testclient}" class="custom">Login with Custom Auth Server</a>
+</div>
+</body>
+</html>
