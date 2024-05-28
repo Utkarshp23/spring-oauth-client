@@ -2,6 +2,7 @@ package app.secure.securify.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +18,7 @@ public class HomeController {
     public String index(Model model, @AuthenticationPrincipal OAuth2User principal) {
         if (principal != null) {
             model.addAttribute("name", principal.getAttribute("name"));
+            System.out.println("@@-->Name:"+ principal.getAttribute("name"));
         }
         return "index";
     }
@@ -40,7 +42,11 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String loginPage(@RequestParam(name = "error", required = false) String error, Model model) {
+        if (error != null) {
+            System.out.println("@@@--->Error on login page redirection ---->"+ error);
+            model.addAttribute("error", "Invalid username or password.");
+        }
         return "login";
     }
 }
