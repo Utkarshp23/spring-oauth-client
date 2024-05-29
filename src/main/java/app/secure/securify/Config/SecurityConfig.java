@@ -1,5 +1,6 @@
 package app.secure.securify.Config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -17,12 +18,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    CustomOidcUserService oidcUserService;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -37,6 +42,7 @@ public class SecurityConfig {
                     oauth2Login.defaultSuccessUrl("/securedPage");
 //                    oauth2Login.loginPage("/oauth2/authorization/testclient");
                     oauth2Login.failureUrl("/login?error=true");
+//                    oauth2Login.userInfoEndpoint( userInfoEndpointConfig -> userInfoEndpointConfig.userService(oidcUserService));
                 })
 //                .oauth2Client(withDefaults())
                 .logout((logout)-> {
