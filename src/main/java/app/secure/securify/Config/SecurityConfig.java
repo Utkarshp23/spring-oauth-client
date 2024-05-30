@@ -26,8 +26,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Autowired
-    CustomOidcUserService oidcUserService;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -39,12 +37,10 @@ public class SecurityConfig {
                 })
                 .oauth2Login(oauth2Login ->{
                     oauth2Login.loginPage("/login");
-                    oauth2Login.defaultSuccessUrl("/securedPage");
-//                    oauth2Login.loginPage("/oauth2/authorization/testclient");
+                    oauth2Login.defaultSuccessUrl("/");
+                    //oauth2Login.loginPage("/oauth2/authorization/testclient");
                     oauth2Login.failureUrl("/login?error=true");
-//                    oauth2Login.userInfoEndpoint( userInfoEndpointConfig -> userInfoEndpointConfig.userService(oidcUserService));
                 })
-//                .oauth2Client(withDefaults())
                 .logout((logout)-> {
                     logout.logoutUrl("/logout");
                     logout.logoutSuccessUrl("/login");
@@ -60,7 +56,6 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-//        config.addAllowedOrigin("http://localhost:9000");
         config.setAllowedOrigins(Arrays.asList("http://auth-server.local:9000","http://localhost:8080"));
         config.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", config);

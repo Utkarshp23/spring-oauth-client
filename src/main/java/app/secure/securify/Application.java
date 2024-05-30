@@ -18,10 +18,4 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-//	@GetMapping("/")
-//	Map<String,String> hello(Principal principal){
-//		return Map.of("message","Hello, "+ principal.getName());
-//	}
-
-
 }
